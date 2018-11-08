@@ -32,6 +32,7 @@ export class Formik<Values = object, ExtraProps = {}> extends React.Component<
   static defaultProps = {
     validateOnChange: true,
     validateOnBlur: true,
+    validateOnLoad: false,
     isInitialValid: false,
     enableReinitialize: false,
   };
@@ -87,6 +88,9 @@ export class Formik<Values = object, ExtraProps = {}> extends React.Component<
 
   componentDidMount() {
     this.didMount = true;
+    if (this.props.validateOnLoad) {
+      this.runValidations(this.state.values)
+    }
   }
 
   componentWillUnmount() {
@@ -583,6 +587,7 @@ export class Formik<Values = object, ExtraProps = {}> extends React.Component<
       handleSubmit: this.handleSubmit,
       validateOnChange: this.props.validateOnChange,
       validateOnBlur: this.props.validateOnBlur,
+      validateOnLoad: this.props.validateOnLoad
     };
   };
 
